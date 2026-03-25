@@ -18,7 +18,7 @@
 
 The website works **immediately** without any backend setup:
 - Open `index.html` in a browser — full website loads
-- Open `admin.html` — admin dashboard loads (login: **admin / tenya2025**)
+- Open `admin.html` — admin dashboard loads (login: ****)
 - All form submissions are stored in browser **localStorage**
 - The admin dashboard reads from localStorage and displays everything
 
