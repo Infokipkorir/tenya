@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tenya Security Group Ltd – Integrity With Excellence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0d1b3e;
+  --red:#d62828;
+  --red2:#a31515;
+  --light:#f5f5f0;
+  --white:#ffffff;
+  --gray:#8a8a8a;
+  --dark:#111111;
+  --card:#1a2a52;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;background:rgba(13,27,62,0.97);backdrop-filter:blur(10px);border-bottom:2px solid var(--red)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo svg{width:44px;height:44px}
+.nav-brand{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--white);line-height:1}
+.nav-brand span{color:var(--red);font-size:.7rem;display:block;font-family:'Barlow',sans-serif;letter-spacing:3px;font-weight:600}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.85rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:.2s;padding:4px 0;border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--white);border-bottom-color:var(--red)}
+.nav-cta{background:var(--red);color:var(--white);padding:10px 22px;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:.2s}
+.nav-cta:hover{background:var(--red2)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+.hamburger span{width:26px;height:2px;background:var(--white);display:block;transition:.3s}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:var(--navy);padding:2rem 5%;z-index:999;flex-direction:column;gap:1.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:rgba(255,255,255,.8);text-decoration:none;font-size:1rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.1)}
+
+/* ─── HERO ─── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:0 5%;margin-top:72px}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0d1b3e 0%,#0a1428 50%,#1a0505 100%)}
+.hero-bg::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="g" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(214,40,40,0.07)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23g)"/></svg>');opacity:.8}
+.hero-bg::after{content:'';position:absolute;right:-10%;top:10%;width:60%;height:80%;background:linear-gradient(135deg,transparent,rgba(214,40,40,0.08));clip-path:polygon(20% 0%,100% 0%,80% 100%,0% 100%)}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(214,40,40,.15);border:1px solid rgba(214,40,40,.4);color:var(--red);padding:6px 16px;font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:2rem}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--red);border-radius:50%;animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+h1.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,7rem);line-height:.95;letter-spacing:2px;margin-bottom:1.5rem}
+h1.hero-title span{color:var(--red)}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,.7);line-height:1.7;max-width:520px;margin-bottom:2.5rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--red);color:var(--white);padding:14px 32px;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);text-decoration:none;display:inline-block;transition:.2s}
+.btn-primary:hover{background:var(--red2)}
+.btn-outline{background:transparent;color:var(--white);padding:14px 32px;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:2px solid rgba(255,255,255,.4);cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
+.btn-outline:hover{border-color:var(--white)}
+.hero-stats{position:absolute;bottom:0;left:0;right:0;display:flex;background:rgba(13,27,62,.9);border-top:1px solid rgba(214,40,40,.3)}
+.hero-stat{flex:1;text-align:center;padding:1.2rem;border-right:1px solid rgba(255,255,255,.08)}
+.hero-stat:last-child{border-right:none}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--red);display:block}
+.hero-stat-label{font-size:.7rem;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase}
+
+/* ─── SECTIONS ─── */
+section{padding:80px 5%}
+.section-tag{display:inline-block;color:var(--red);font-size:.75rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:1rem;padding-left:40px;position:relative}
+.section-tag::before{content:'';position:absolute;left:0;top:50%;width:28px;height:2px;background:var(--red);transform:translateY(-50%)}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:2px;line-height:1;margin-bottom:1rem}
+.section-title span{color:var(--red)}
+.section-sub{color:rgba(255,255,255,.6);font-size:1rem;line-height:1.7;max-width:540px;font-weight:300}
+
+/* ─── ABOUT ─── */
+#about{background:var(--dark);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-img-stack{position:relative;height:500px}
+.about-img-main{width:80%;height:100%;object-fit:cover;border:3px solid rgba(214,40,40,.4)}
+.about-img-badge{position:absolute;bottom:30px;right:0;background:var(--red);padding:1.5rem;text-align:center;min-width:130px}
+.about-img-badge .big{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;display:block}
+.about-img-badge .small{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;opacity:.9}
+.about-features{margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.about-feat{display:flex;align-items:flex-start;gap:.8rem;padding:1rem;background:rgba(255,255,255,.04);border-left:3px solid var(--red)}
+.about-feat-icon{font-size:1.4rem;color:var(--red)}
+.about-feat-text strong{display:block;font-size:.85rem;font-weight:700;letter-spacing:.5px}
+.about-feat-text span{font-size:.78rem;color:rgba(255,255,255,.5)}
+
+/* ─── SERVICES ─── */
+#services{background:linear-gradient(180deg,#0d1b3e 0%,#0a1020 100%)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
+.service-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:2rem;position:relative;overflow:hidden;transition:.3s;cursor:pointer}
+.service-card::before{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--red);transform:scaleX(0);transition:.3s;transform-origin:left}
+.service-card:hover{background:rgba(255,255,255,.07);transform:translateY(-4px)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-icon{width:50px;height:50px;background:rgba(214,40,40,.15);border:1px solid rgba(214,40,40,.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+.service-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:1px;margin-bottom:.8rem}
+.service-card p{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.7}
+.service-card .learn{display:inline-flex;align-items:center;gap:6px;color:var(--red);font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:1.2rem;text-decoration:none}
+.service-card .learn::after{content:'→';transition:.2s}
+.service-card:hover .learn::after{transform:translateX(4px)}
+
+/* ─── WHY US ─── */
+#why{background:var(--dark);text-align:center}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem}
+.why-item{padding:2rem 1rem}
+.why-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--red);line-height:1}
+.why-label{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:.3rem}
+.why-desc{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:.5rem;line-height:1.5}
+
+/* ─── QUOTE SECTION ─── */
+#quote{background:linear-gradient(135deg,var(--red2) 0%,#8b0000 100%);padding:60px 5%;text-align:center}
+#quote h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.5rem);letter-spacing:2px;margin-bottom:.5rem}
+#quote p{color:rgba(255,255,255,.8);margin-bottom:2rem;font-size:1rem}
+.quote-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:1rem;max-width:900px;margin:0 auto;background:rgba(0,0,0,.2);padding:1.5rem;border-radius:2px}
+.quote-form input,.quote-form select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:var(--white);padding:12px 16px;font-family:'Barlow',sans-serif;font-size:.85rem}
+.quote-form input::placeholder{color:rgba(255,255,255,.5)}
+.quote-form select option{background:#333;color:var(--white)}
+.quote-form button{background:var(--navy);color:var(--white);border:none;padding:12px 28px;font-family:'Barlow',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.2s;white-space:nowrap}
+.quote-form button:hover{background:#0a1428}
+
+/* ─── BLOG ─── */
+#blog{background:#0d1b3e}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem}
+.blog-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:.3s}
+.blog-card:hover{border-color:rgba(214,40,40,.4);transform:translateY(-3px)}
+.blog-img{height:180px;background:linear-gradient(135deg,#1a2a52,#2a1010);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.blog-img .badge{position:absolute;top:12px;left:12px;background:var(--red);color:var(--white);font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px}
+.blog-body{padding:1.5rem}
+.blog-meta{font-size:.7rem;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:.6rem}
+.blog-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.6rem;line-height:1.3}
+.blog-card p{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6}
+.blog-card a{display:inline-block;margin-top:1rem;color:var(--red);font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none}
+
+/* ─── CAREERS ─── */
+#careers{background:var(--dark)}
+.careers-list{margin-top:2rem;display:flex;flex-direction:column;gap:1rem}
+.career-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;transition:.3s}
+.career-item:hover{border-color:var(--red);background:rgba(214,40,40,.05)}
+.career-info strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:.5px}
+.career-info span{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+.career-badges{display:flex;gap:.5rem;margin-top:.5rem}
+.badge{padding:3px 10px;font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.badge-red{background:rgba(214,40,40,.2);color:var(--red);border:1px solid rgba(214,40,40,.3)}
+.badge-blue{background:rgba(13,27,62,.8);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15)}
+.career-apply{background:var(--red);color:var(--white);border:none;padding:10px 24px;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);white-space:nowrap;transition:.2s}
+.career-apply:hover{background:var(--red2)}
+
+/* ─── CONTACT ─── */
+#contact{background:linear-gradient(180deg,#0d1b3e,#0a1020);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-info{padding-right:2rem}
+.contact-details{margin-top:2rem;display:flex;flex-direction:column;gap:1.2rem}
+.contact-item{display:flex;align-items:flex-start;gap:1rem}
+.contact-icon{width:40px;height:40px;background:rgba(214,40,40,.15);border:1px solid rgba(214,40,40,.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-item strong{display:block;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:2px}
+.contact-item span{font-size:.9rem;color:rgba(255,255,255,.7)}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group label{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.form-group input,.form-group textarea,.form-group select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--white);padding:12px 16px;font-family:'Barlow',sans-serif;font-size:.9rem;transition:.2s}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--red);background:rgba(255,255,255,.08)}
+.form-group textarea{resize:vertical;min-height:120px}
+
+/* ─── FOOTER ─── */
+footer{background:#070d1e;padding:60px 5% 24px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand p{font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.7;margin:1rem 0}
+.footer-social{display:flex;gap:.8rem}
+.social-btn{width:34px;height:34px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;cursor:pointer;transition:.2s;color:rgba(255,255,255,.6);text-decoration:none}
+.social-btn:hover{background:var(--red);border-color:var(--red);color:var(--white)}
+.footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(214,40,40,.4)}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-col ul li a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.82rem;transition:.2s}
+.footer-col ul li a:hover{color:var(--red)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:.78rem;color:rgba(255,255,255,.3)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:.75rem;color:rgba(255,255,255,.3);text-decoration:none;transition:.2s}
+.footer-links a:hover{color:var(--red)}
+
+/* ─── MODALS ─── */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;align-items:center;justify-content:center;padding:1rem}
+.modal.open{display:flex}
+.modal-box{background:#111927;border:1px solid rgba(255,255,255,.1);max-width:540px;width:100%;max-height:90vh;overflow-y:auto;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.modal-header h3{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:1px}
+.modal-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:1.5rem;cursor:pointer;line-height:1}
+.modal-body{padding:2rem}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--red);color:var(--white);padding:1rem 1.5rem;font-size:.85rem;font-weight:600;z-index:9999;transform:translateX(200%);transition:.3s;border-left:4px solid var(--white)}
+.toast.show{transform:translateX(0)}
+.toast.success{background:#1a6b3c}
+
+/* ─── ADMIN LINK ─── */
+.admin-float{position:fixed;bottom:2rem;left:2rem;background:var(--navy);border:1px solid rgba(214,40,40,.5);color:var(--white);padding:10px 16px;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;z-index:800;text-decoration:none;display:flex;align-items:center;gap:6px;transition:.2s}
+.admin-float:hover{background:var(--red)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  #about,#contact{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .quote-form{grid-template-columns:1fr 1fr}
+  .quote-form button{grid-column:span 2}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-stats{flex-wrap:wrap}
+  .hero-stat{min-width:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .quote-form{grid-template-columns:1fr}
+  .quote-form button{grid-column:1}
+  .career-item{flex-direction:column;align-items:flex-start;gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="4" width="18" height="5" fill="#0d1b3e" stroke="#d62828" stroke-width="1"/>
+      <rect x="10" y="4" width="5" height="22" fill="#0d1b3e" stroke="#d62828" stroke-width="1"/>
+      <path d="M22 8 L40 8 L36 16 L26 16 L30 26 L22 26 Z" fill="#d62828"/>
+      <path d="M26 16 L36 16 L32 26 L22 26 Z" fill="#0d1b3e" opacity=".4"/>
+    </svg>
+    <div class="nav-brand">TENYA SECURITY<span>Integrity With Excellence</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal('quoteModal')">Get a Quote</button>
+  <button class="hamburger" onclick="toggleMobile()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMobile()">About</a>
+  <a href="#services" onclick="toggleMobile()">Services</a>
+  <a href="#careers" onclick="toggleMobile()">Careers</a>
+  <a href="#blog" onclick="toggleMobile()">Blog</a>
+  <a href="#contact" onclick="toggleMobile()">Contact</a>
+  <button class="btn-primary" onclick="openModal('quoteModal');toggleMobile()">Get a Quote</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">🛡 Trusted Security Partner – Kenya</div>
+    <h1 class="hero-title">GUARD YOUR<br><span>WORLD</span><br>WITH US</h1>
+    <p class="hero-sub">Professional security solutions delivered with integrity and excellence. Protecting businesses, properties, and people across Kenya.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Our Services</a>
+      <button class="btn-outline" onclick="openModal('quoteModal')">Get a Free Quote</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">500+</span><span class="hero-stat-label">Clients Protected</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">24/7</span><span class="hero-stat-label">Rapid Response</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Licensed & Certified</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">10+</span><span class="hero-stat-label">Years Experience</span></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-img-stack">
+    <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80" alt="Tenya Security Guard" class="about-img-main" onerror="this.style.background='linear-gradient(135deg,#1a2a52,#2a1010)';this.style.height='100%';this.removeAttribute('src')"/>
+    <div class="about-img-badge">
+      <span class="big">10+</span>
+      <span class="small">Years of<br>Excellence</span>
+    </div>
+  </div>
+  <div>
+    <div class="section-tag">Who We Are</div>
+    <h2 class="section-title">TENYA SECURITY<br><span>GROUP LTD</span></h2>
+    <p class="section-sub">Tenya Security Group Ltd is a professional security company committed to delivering integrity-driven, excellence-focused protection services. We safeguard businesses, residences, and institutions across Kenya.</p>
+    <div class="about-features">
+      <div class="about-feat"><span class="about-feat-icon">🏅</span><div class="about-feat-text"><strong>Licensed & Certified</strong><span>Government licensed security provider</span></div></div>
+      <div class="about-feat"><span class="about-feat-icon">🛡</span><div class="about-feat-text"><strong>Trained Officers</strong><span>Highly trained professional guards</span></div></div>
+      <div class="about-feat"><span class="about-feat-icon">📡</span><div class="about-feat-text"><strong>Modern Technology</strong><span>CCTV, access control & monitoring</span></div></div>
+      <div class="about-feat"><span class="about-feat-icon">⚡</span><div class="about-feat-text"><strong>24/7 Response</strong><span>Round the clock protection</span></div></div>
+    </div>
+    <br/>
+    <a href="#contact" class="btn-primary">Get in Touch</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag">What We Offer</div>
+  <h2 class="section-title">OUR <span>SERVICES</span></h2>
+  <p class="section-sub">Comprehensive security solutions tailored to your specific needs and environment.</p>
+  <div class="services-grid" id="servicesGrid">
+    <div class="service-card"><div class="service-icon">🏢</div><h3>Manned Guarding</h3><p>Professional uniformed security officers for commercial, residential and industrial premises. Day and night shifts available.</p><a href="#contact" class="learn">Learn More</a></div>
+    <div class="service-card"><div class="service-icon">📹</div><h3>CCTV & Surveillance</h3><p>Advanced camera systems with remote monitoring, recording and 24/7 surveillance to protect your property.</p><a href="#contact" class="learn">Learn More</a></div>
+    <div class="service-card"><div class="service-icon">🚨</div><h3>Alarm Response</h3><p>Rapid response to alarm activations with armed response units deployed within minutes of any incident.</p><a href="#contact" class="learn">Learn More</a></div>
+    <div class="service-card"><div class="service-icon">🚗</div><h3>Mobile Patrol</h3><p>Regular mobile patrol services covering wide areas and multiple sites, providing a visible security presence.</p><a href="#contact" class="learn">Learn More</a></div>
+    <div class="service-card"><div class="service-icon">🔐</div><h3>Access Control</h3><p>Biometric and card-based access control systems to manage and restrict entry to secure areas.</p><a href="#contact" class="learn">Learn More</a></div>
+    <div class="service-card"><div class="service-icon">🎓</div><h3>Security Training</h3><p>Professional training programs for security personnel, building security awareness and competency.</p><a href="#contact" class="learn">Learn More</a></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" style="background:#0a1020">
+  <div class="section-tag">Why Choose Us</div>
+  <h2 class="section-title">THE TENYA <span>ADVANTAGE</span></h2>
+  <div class="why-grid">
+    <div class="why-item"><div class="why-num">500+</div><div class="why-label">Happy Clients</div><p class="why-desc">Businesses & residences under our protection across Kenya</p></div>
+    <div class="why-item"><div class="why-num">98%</div><div class="why-label">Client Retention</div><p class="why-desc">Clients trust us year after year to keep them safe</p></div>
+    <div class="why-item"><div class="why-num">24/7</div><div class="why-label">Always On</div><p class="why-desc">Round-the-clock operations, 365 days a year</p></div>
+    <div class="why-item"><div class="why-num">100%</div><div class="why-label">Licensed</div><p class="why-desc">Fully compliant with Kenya's Private Security Act</p></div>
+  </div>
+</section>
+
+<!-- QUOTE BANNER -->
+<div id="quote">
+  <h2>GET YOUR FREE SECURITY QUOTE TODAY</h2>
+  <p>Tell us what you need — we'll build a customized solution for you.</p>
+  <div class="quote-form" id="quickQuoteForm">
+    <input type="text" placeholder="Your Name" id="qqName"/>
+    <input type="tel" placeholder="Phone Number" id="qqPhone"/>
+    <select id="qqService">
+      <option value="">Select Service</option>
+      <option>Manned Guarding</option>
+      <option>CCTV & Surveillance</option>
+      <option>Alarm Response</option>
+      <option>Mobile Patrol</option>
+      <option>Access Control</option>
+    </select>
+    <button onclick="submitQuickQuote()">Submit →</button>
+  </div>
+</div>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-tag">Latest News</div>
+  <h2 class="section-title">FROM OUR <span>BLOG</span></h2>
+  <div class="blog-grid" id="blogGrid">
+    <div class="blog-card"><div class="blog-img">🔒<span class="badge">Security Tips</span></div><div class="blog-body"><div class="blog-meta">March 2025 · 4 min read</div><h3>Top 5 Security Measures Every Business Needs</h3><p>From access control to CCTV, learn the essential security infrastructure every modern business should have.</p><a href="#">Read More →</a></div></div>
+    <div class="blog-card"><div class="blog-img">🏠<span class="badge">Residential</span></div><div class="blog-body"><div class="blog-meta">February 2025 · 3 min read</div><h3>Keeping Your Home Safe in Nairobi</h3><p>Practical tips for homeowners looking to upgrade their residential security without breaking the bank.</p><a href="#">Read More →</a></div></div>
+    <div class="blog-card"><div class="blog-img">📋<span class="badge">Industry</span></div><div class="blog-body"><div class="blog-meta">January 2025 · 5 min read</div><h3>Private Security Regulations in Kenya: What You Need to Know</h3><p>Understanding Kenya's Private Security Regulatory Authority (PSRA) and why it matters for your protection.</p><a href="#">Read More →</a></div></div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section id="careers">
+  <div class="section-tag">Join Our Team</div>
+  <h2 class="section-title">OPEN <span>POSITIONS</span></h2>
+  <p class="section-sub">Be part of a company that values integrity, professionalism, and excellence in everything we do.</p>
+  <div class="careers-list" id="careersList">
+    <div class="career-item"><div class="career-info"><strong>Security Guard – Nairobi CBD</strong><span>Full Time · Nairobi</span><div class="career-badges"><span class="badge badge-red">Urgent</span><span class="badge badge-blue">Entry Level</span></div></div><button class="career-apply" onclick="openApply('Security Guard – Nairobi CBD')">Apply Now</button></div>
+    <div class="career-item"><div class="career-info"><strong>Supervisor – Westlands</strong><span>Full Time · Nairobi</span><div class="career-badges"><span class="badge badge-blue">Experienced</span></div></div><button class="career-apply" onclick="openApply('Supervisor – Westlands')">Apply Now</button></div>
+    <div class="career-item"><div class="career-info"><strong>Control Room Operator</strong><span>Full Time · Nairobi</span><div class="career-badges"><span class="badge badge-red">New</span><span class="badge badge-blue">Technical</span></div></div><button class="career-apply" onclick="openApply('Control Room Operator')">Apply Now</button></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-info">
+    <div class="section-tag">Reach Us</div>
+    <h2 class="section-title">GET IN <span>TOUCH</span></h2>
+    <p class="section-sub">We're ready to discuss how Tenya Security can protect what matters most to you.</p>
+    <div class="contact-details">
+      <div class="contact-item"><div class="contact-icon">📍</div><div><strong>Location</strong><span>Nairobi, Kenya</span></div></div>
+      <div class="contact-item"><div class="contact-icon">📞</div><div><strong>Phone</strong><span>+254 700 000 000</span></div></div>
+      <div class="contact-item"><div class="contact-icon">✉️</div><div><strong>Email</strong><span>info@tenyasecurity.co.ke</span></div></div>
+      <div class="contact-item"><div class="contact-icon">🕐</div><div><strong>Operations</strong><span>24 Hours, 7 Days a Week</span></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" id="cName" placeholder="John Kamau"/></div>
+        <div class="form-group"><label>Phone</label><input type="tel" id="cPhone" placeholder="+254 700 000 000"/></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" id="cEmail" placeholder="john@company.co.ke"/></div>
+      <div class="form-group"><label>Subject</label><select id="cSubject"><option>General Inquiry</option><option>Request a Quote</option><option>Partnership</option><option>Complaint</option><option>Other</option></select></div>
+      <div class="form-group"><label>Message</label><textarea id="cMessage" placeholder="Tell us about your security needs..."></textarea></div>
+      <button class="btn-primary" onclick="submitContact()" style="align-self:flex-start">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-brand" style="font-size:1.2rem">TENYA SECURITY GROUP LTD<span style="font-size:.65rem;display:block;color:#d62828;font-family:Barlow,sans-serif;letter-spacing:3px;font-weight:600;margin-top:4px">INTEGRITY WITH EXCELLENCE</span></div>
+      <p>Professional security solutions protecting businesses and residences across Kenya with integrity and excellence.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#" title="Facebook">f</a>
+        <a class="social-btn" href="#" title="Twitter">𝕏</a>
+        <a class="social-btn" href="#" title="LinkedIn">in</a>
+        <a class="social-btn" href="#" title="WhatsApp">W</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Manned Guarding</a></li><li><a href="#">CCTV Surveillance</a></li><li><a href="#">Alarm Response</a></li><li><a href="#">Mobile Patrol</a></li><li><a href="#">Access Control</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#blog">Blog</a></li><li><a href="#careers">Careers</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">PSRA License</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Tenya Security Group Ltd. All rights reserved.</p>
+    <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="admin.html">Admin</a></div>
+  </div>
+</footer>
+
+<!-- QUOTE MODAL -->
+<div class="modal" id="quoteModal">
+  <div class="modal-box">
+    <div class="modal-header"><h3>🛡 Request a Free Quote</h3><button class="modal-close" onclick="closeModal('quoteModal')">×</button></div>
+    <div class="modal-body">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>Name</label><input type="text" id="qName" placeholder="Your full name"/></div>
+          <div class="form-group"><label>Company</label><input type="text" id="qCompany" placeholder="Company name (optional)"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Phone</label><input type="tel" id="qPhone" placeholder="+254 700 000 000"/></div>
+          <div class="form-group"><label>Email</label><input type="email" id="qEmail" placeholder="email@example.com"/></div>
+        </div>
+        <div class="form-group"><label>Service Needed</label><select id="qService"><option>Manned Guarding</option><option>CCTV & Surveillance</option><option>Alarm Response</option><option>Mobile Patrol</option><option>Access Control</option><option>Security Training</option><option>Multiple Services</option></select></div>
+        <div class="form-group"><label>Site Location</label><input type="text" id="qLocation" placeholder="Where is the site to be secured?"/></div>
+        <div class="form-group"><label>Additional Details</label><textarea id="qDetails" placeholder="Tell us more about your security needs, number of guards needed, schedule, etc."></textarea></div>
+        <button class="btn-primary" onclick="submitQuote()">Submit Quote Request →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APPLY MODAL -->
+<div class="modal" id="applyModal">
+  <div class="modal-box">
+    <div class="modal-header"><h3 id="applyTitle">Apply for Position</h3><button class="modal-close" onclick="closeModal('applyModal')">×</button></div>
+    <div class="modal-body">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name</label><input type="text" id="aName" placeholder="Your full name"/></div>
+          <div class="form-group"><label>Phone</label><input type="tel" id="aPhone" placeholder="+254 700 000 000"/></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" id="aEmail" placeholder="your@email.com"/></div>
+        <div class="form-group"><label>ID Number</label><input type="text" id="aId" placeholder="National ID number"/></div>
+        <div class="form-group"><label>Cover Letter</label><textarea id="aCover" placeholder="Why do you want to join Tenya Security?"></textarea></div>
+        <button class="btn-primary" onclick="submitApplication()">Submit Application →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ADMIN LINK -->
+<a href="admin.html" class="admin-float">⚙ Admin Panel</a>
+
+<script>
+// ─── UI HELPERS ───
+function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function showToast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(type==='success'?'success':'');requestAnimationFrame(()=>{t.classList.add('show')});setTimeout(()=>t.classList.remove('show'),3500)}
+
+// Close modals on outside click
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')}));
+
+// Scroll nav active
+window.addEventListener('scroll',()=>{
+  const sections=['about','services','careers','blog','contact'];
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){const r=el.getBoundingClientRect();const link=document.querySelector(`.nav-links a[href="#${id}"]`);if(link){if(r.top<=80&&r.bottom>0)link.classList.add('active');else link.classList.remove('active')}}
+  });
+});
+
+function openApply(pos){document.getElementById('applyTitle').textContent='Apply: '+pos;openModal('applyModal')}
+
+// ─── BACKEND API ───
+const API = 'backend.php'; // Change to your actual backend URL
+
+async function apiPost(action,data){
+  try{
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...data})});
+    return await r.json();
+  }catch(e){console.log('API offline, storing locally');return{ok:false,offline:true}}
+}
+
+function storeLocal(key,data){
+  const arr=JSON.parse(localStorage.getItem(key)||'[]');
+  arr.push({...data,timestamp:new Date().toISOString()});
+  localStorage.setItem(key,JSON.stringify(arr));
+}
+
+async function submitQuote(){
+  const data={name:document.getElementById('qName').value,company:document.getElementById('qCompany').value,phone:document.getElementById('qPhone').value,email:document.getElementById('qEmail').value,service:document.getElementById('qService').value,location:document.getElementById('qLocation').value,details:document.getElementById('qDetails').value};
+  if(!data.name||!data.phone){showToast('Please fill in your name and phone number.');return}
+  const res=await apiPost('quote',data);
+  storeLocal('quotes',data);
+  showToast('Quote request submitted! We\'ll contact you within 24 hours.','success');
+  closeModal('quoteModal');
+}
+
+async function submitContact(){
+  const data={name:document.getElementById('cName').value,phone:document.getElementById('cPhone').value,email:document.getElementById('cEmail').value,subject:document.getElementById('cSubject').value,message:document.getElementById('cMessage').value};
+  if(!data.name||!data.message){showToast('Please fill in your name and message.');return}
+  const res=await apiPost('contact',data);
+  storeLocal('messages',data);
+  showToast('Message sent! We\'ll get back to you soon.','success');
+  ['cName','cPhone','cEmail','cMessage'].forEach(id=>document.getElementById(id).value='');
+}
+
+async function submitQuickQuote(){
+  const data={name:document.getElementById('qqName').value,phone:document.getElementById('qqPhone').value,service:document.getElementById('qqService').value};
+  if(!data.name||!data.phone){showToast('Please fill in name and phone.');return}
+  const res=await apiPost('quote',data);
+  storeLocal('quotes',data);
+  showToast('Thanks! We\'ll call you shortly.','success');
+}
+
+async function submitApplication(){
+  const data={name:document.getElementById('aName').value,phone:document.getElementById('aPhone').value,email:document.getElementById('aEmail').value,id:document.getElementById('aId').value,cover:document.getElementById('aCover').value,position:document.getElementById('applyTitle').textContent.replace('Apply: ','')};
+  if(!data.name||!data.phone){showToast('Please fill in your name and phone.');return}
+  const res=await apiPost('career',data);
+  storeLocal('applications',data);
+  showToast('Application submitted! We\'ll be in touch.','success');
+  closeModal('applyModal');
+}
+</script>
+</body>
+</html>
