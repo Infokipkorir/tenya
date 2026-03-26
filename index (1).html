@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tenya Security Group Ltd – Integrity With Excellence</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* ══════════════════════════════════════════
+   TENYA SECURITY — USER SITE
+   Bright · Animated · Professional
+══════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0b1d4f;--navy2:#0e2460;--red:#e8253a;--red2:#c01c2e;
+  --orange:#ff6b35;--gold:#ffb800;--white:#fff;--light:#f0f4ff;
+  --light2:#e8eeff;--text:#1a1f3c;--muted:#6b7280;
+  --sr:0 8px 30px rgba(232,37,58,.25);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--light);color:var(--text);overflow-x:hidden}
+
+/* CURSOR GLOW */
+.cg{position:fixed;width:280px;height:280px;background:radial-gradient(circle,rgba(232,37,58,.05),transparent 70%);border-radius:50%;pointer-events:none;z-index:1;transform:translate(-50%,-50%);transition:transform .08s linear}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .7s,visibility .7s}
+.loader.gone{opacity:0;visibility:hidden}
+.ld-icon{font-size:3.5rem;animation:ldpop .6s ease forwards}
+.ld-txt{font-family:'Black Han Sans',sans-serif;font-size:2rem;color:#fff;letter-spacing:4px;margin:.4rem 0;animation:ldpop .6s .1s ease both}
+.ld-bar{width:220px;height:4px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin:.8rem 0}
+.ld-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--orange));animation:ldfill 1.7s ease forwards;border-radius:4px}
+.ld-sub{font-size:.7rem;color:rgba(255,255,255,.4);letter-spacing:3px;text-transform:uppercase;animation:ldpop .6s .2s ease both}
+@keyframes ldpop{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ldfill{from{width:0}to{width:100%}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);box-shadow:0 2px 18px rgba(11,29,79,.08);transition:.3s}
+nav.scrolled{box-shadow:0 4px 28px rgba(11,29,79,.13)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-hex{width:42px;height:42px;background:linear-gradient(135deg,var(--navy),var(--navy2));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Black Han Sans',sans-serif;font-size:1.1rem;flex-shrink:0}
+.logo-txt{font-family:'Black Han Sans',sans-serif;font-size:1rem;color:var(--navy);letter-spacing:1px;line-height:1.1}
+.logo-txt small{display:block;font-family:'Outfit',sans-serif;font-size:.57rem;font-weight:700;color:var(--red);letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--text);text-decoration:none;font-size:.87rem;font-weight:600;position:relative;transition:.2s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--red);transition:.3s;border-radius:2px}
+.nav-links a:hover,.nav-links a.active{color:var(--red)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.btn-nav{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border:none;padding:10px 22px;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;border-radius:6px;transition:.3s;box-shadow:var(--sr)}
+.btn-nav:hover{transform:translateY(-2px);box-shadow:0 14px 35px rgba(232,37,58,.4)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+.hamburger span{width:24px;height:2px;background:var(--navy);display:block;border-radius:2px;transition:.3s}
+.mob-nav{display:none;position:fixed;top:70px;left:0;right:0;background:#fff;padding:1.4rem 5%;box-shadow:0 10px 30px rgba(11,29,79,.1);z-index:199;flex-direction:column;gap:.7rem}
+.mob-nav.open{display:flex;animation:sld .2s ease}
+@keyframes sld{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.mob-nav a{color:var(--text);text-decoration:none;font-weight:600;font-size:.95rem;padding:.55rem 0;border-bottom:1px solid var(--light2)}
+
+/* SCROLL REVEAL */
+.rv,.rv-l,.rv-r{opacity:0;transition:opacity .7s,transform .7s}
+.rv{transform:translateY(38px)}.rv-l{transform:translateX(-45px)}.rv-r{transform:translateX(45px)}
+.rv.on,.rv-l.on,.rv-r.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* HERO */
+.hero{min-height:100vh;padding:70px 5% 0;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(140deg,var(--navy) 0%,var(--navy2) 50%,#1c0810 100%)}
+.hbg-c{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hbc{position:absolute;border-radius:50%;animation:breathe 5s ease-in-out infinite}
+.hbc1{width:580px;height:580px;right:-8%;top:-8%;background:radial-gradient(circle,rgba(232,37,58,.13),transparent 70%)}
+.hbc2{width:280px;height:280px;left:36%;bottom:22%;background:radial-gradient(circle,rgba(255,184,0,.08),transparent 70%);animation-delay:2.5s}
+.hbc3{width:140px;height:140px;border:2px solid rgba(255,255,255,.06);right:22%;top:28%;animation:spin 28s linear infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pts{position:absolute;inset:0;pointer-events:none}
+.pt{position:absolute;border-radius:50%;animation:ptup linear infinite}
+@keyframes ptup{0%{transform:translateY(110vh) rotate(0);opacity:0}10%{opacity:.8}85%{opacity:.4}100%{transform:translateY(-60px) rotate(720deg);opacity:0}}
+.hero-content{position:relative;z-index:2;max-width:640px}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:7px 18px;border-radius:30px;font-size:.74rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.8rem;animation:pdrop .8s ease forwards}
+.hdot{width:7px;height:7px;background:#4dff8e;border-radius:50%;box-shadow:0 0 8px #4dff8e;animation:blink 1.5s infinite}
+@keyframes pdrop{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(3.2rem,7.5vw,7rem);line-height:.93;letter-spacing:2px;color:#fff;margin-bottom:1.5rem;animation:hup .8s .2s ease both}
+.h1r{color:var(--red);position:relative}
+.h1r::after{content:'';position:absolute;bottom:-5px;left:0;height:5px;background:linear-gradient(90deg,var(--red),var(--orange));border-radius:3px;width:0;animation:expw 1s 1.2s ease forwards}
+@keyframes expw{to{width:100%}}
+.h1g{color:var(--gold)}
+@keyframes hup{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:translateY(0)}}
+.hero-sub{color:rgba(255,255,255,.7);font-size:1.05rem;line-height:1.8;max-width:480px;margin-bottom:2.5rem;font-weight:300;animation:hup .8s .4s ease both}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:hup .8s .5s ease both}
+.btn-hp{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;padding:14px 32px;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;border:none;cursor:pointer;border-radius:6px;transition:.3s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 8px 28px rgba(232,37,58,.4)}
+.btn-hp:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(232,37,58,.5)}
+.btn-hs{background:transparent;color:#fff;padding:14px 32px;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;border:2px solid rgba(255,255,255,.35);cursor:pointer;border-radius:6px;transition:.3s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
+.btn-hs:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
+.hero-floats{position:absolute;right:5%;top:50%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;gap:1rem;animation:hup .9s .3s ease both}
+.hfc{background:rgba(255,255,255,.09);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:1.2rem 1.5rem;min-width:225px}
+.hfc.ac{background:rgba(232,37,58,.18);border-color:rgba(232,37,58,.3);position:relative}
+.hfc-row{display:flex;align-items:center;gap:.8rem}
+.hfc-icon{font-size:1.7rem}
+.hfc-val{font-family:'Black Han Sans',sans-serif;font-size:1.9rem;color:#fff;line-height:1}
+.hfc-lbl{font-size:.66rem;color:rgba(255,255,255,.55);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.yr-badge{position:absolute;top:-14px;right:-14px;width:76px;height:76px;background:linear-gradient(135deg,var(--gold),#ff9500);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Black Han Sans',sans-serif;color:var(--navy);box-shadow:0 6px 22px rgba(255,184,0,.45);animation:spin 12s linear infinite reverse;font-size:1.2rem;line-height:1;text-align:center}
+.yr-badge small{font-family:'Outfit',sans-serif;font-size:.45rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;line-height:1.4}
+.hero-sbar{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.1);display:flex}
+.hsb{flex:1;padding:1.1rem;text-align:center;border-right:1px solid rgba(255,255,255,.07)}
+.hsb:last-child{border-right:none}
+.hsb-n{font-family:'Black Han Sans',sans-serif;font-size:1.7rem;color:var(--gold);display:block}
+.hsb-l{font-size:.63rem;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase}
+
+/* MARQUEE */
+.mq-band{background:linear-gradient(90deg,var(--red),var(--orange),var(--red));padding:.82rem 0;overflow:hidden}
+.mq-inner{display:flex;white-space:nowrap;animation:mq 22s linear infinite;gap:2.5rem}
+.mq-inner span{color:#fff;font-size:.8rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
+.mstar{color:var(--gold);font-size:.65rem}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:88px 5%}
+.stag{display:inline-flex;align-items:center;gap:.5rem;color:var(--red);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:.7rem}
+.stag::before{content:'';width:22px;height:2px;background:var(--red);border-radius:2px}
+.stitle{font-family:'Black Han Sans',sans-serif;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:1px;color:var(--navy);line-height:1.05;margin-bottom:.7rem}
+.stitle span{color:var(--red)}
+.ssub{color:var(--muted);font-size:.94rem;line-height:1.75;max-width:500px}
+.btn-p{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;padding:12px 28px;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:700;border:none;cursor:pointer;border-radius:6px;transition:.3s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;box-shadow:var(--sr)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(232,37,58,.35)}
+.btn-o{background:transparent;color:var(--navy);padding:12px 28px;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:700;border:2px solid var(--navy);cursor:pointer;border-radius:6px;transition:.3s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
+.btn-o:hover{background:var(--navy);color:#fff}
+
+/* ABOUT */
+#about{background:#fff}
+.ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.ab-img-wrap{position:relative}
+.ab-img{width:100%;height:460px;background:linear-gradient(135deg,var(--navy),#1a3a8f,var(--navy2));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:6rem;box-shadow:0 8px 40px rgba(11,29,79,.14);overflow:hidden;position:relative}
+.ab-img img{width:100%;height:100%;object-fit:cover;border-radius:16px}
+.ab-fc1{position:absolute;bottom:-16px;right:-16px;background:#fff;border-radius:14px;padding:1rem 1.3rem;box-shadow:0 12px 40px rgba(11,29,79,.14);display:flex;align-items:center;gap:.8rem}
+.afc-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--red),var(--orange));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.afc-n{font-family:'Black Han Sans',sans-serif;font-size:1.7rem;color:var(--navy);line-height:1}
+.afc-l{font-size:.66rem;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.ab-fc2{position:absolute;top:-16px;left:-16px;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:14px;padding:.9rem 1.3rem;color:#fff;box-shadow:0 12px 34px rgba(11,29,79,.3)}
+.ab-fc2-n{font-family:'Black Han Sans',sans-serif;font-size:1.8rem;color:var(--gold);line-height:1}
+.ab-fc2-l{font-size:.63rem;color:rgba(255,255,255,.55);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.ab-feats{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.8rem}
+.afi{display:flex;gap:.7rem;padding:.88rem 1rem;background:var(--light);border-radius:10px;border-left:3px solid var(--red);transition:.25s;align-items:flex-start}
+.afi:hover{background:var(--light2);transform:translateX(4px)}
+.afi-icon{font-size:1.2rem}
+.afi strong{display:block;font-size:.85rem;font-weight:700;color:var(--navy)}
+.afi span{font-size:.75rem;color:var(--muted)}
+
+/* SERVICES */
+#services{background:var(--light)}
+.svc-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;gap:2rem;flex-wrap:wrap}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.svc-card{background:#fff;border-radius:14px;padding:1.8rem;border:2px solid transparent;transition:.35s;cursor:pointer;box-shadow:0 4px 18px rgba(11,29,79,.06)}
+.svc-card:hover{border-color:var(--red);transform:translateY(-8px);box-shadow:0 22px 52px rgba(232,37,58,.13)}
+.svc-num{font-family:'Black Han Sans',sans-serif;font-size:2.6rem;color:var(--light2);line-height:1;margin-bottom:.3rem;transition:.3s}
+.svc-card:hover .svc-num{color:rgba(232,37,58,.07)}
+.svc-iw{width:50px;height:50px;background:var(--light);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem;border:2px solid var(--light2);transition:.3s}
+.svc-card:hover .svc-iw{background:linear-gradient(135deg,var(--red),var(--orange));border-color:transparent}
+.svc-card h3{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
+.svc-card p{font-size:.82rem;color:var(--muted);line-height:1.7}
+.svc-lnk{display:inline-flex;align-items:center;gap:.4rem;color:var(--red);font-size:.74rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:1.1rem;text-decoration:none;transition:.2s}
+.svc-lnk:hover{gap:.8rem}
+
+/* STATS */
+.sts-strip{background:linear-gradient(135deg,var(--navy),#081640);padding:65px 5%}
+.sts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stsc{padding:1.4rem}
+.stsc-n{font-family:'Black Han Sans',sans-serif;font-size:3rem;color:var(--gold);display:block;line-height:1}
+.stsc-l{font-size:.7rem;color:rgba(255,255,255,.55);letter-spacing:2px;text-transform:uppercase;display:block;margin-top:.3rem}
+.stsc-d{font-size:.78rem;color:rgba(255,255,255,.38);margin-top:.3rem}
+
+/* QUOTE */
+#quote{background:linear-gradient(135deg,var(--red),var(--red2) 60%,#700010 100%);position:relative;overflow:hidden;padding:80px 5%}
+#quote::before{content:'';position:absolute;right:-6%;top:-18%;width:480px;height:480px;border-radius:50%;border:75px solid rgba(255,255,255,.04);pointer-events:none}
+#quote::after{content:'';position:absolute;left:-7%;bottom:-22%;width:360px;height:360px;border-radius:50%;border:55px solid rgba(255,255,255,.03);pointer-events:none}
+.qt-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.qt-t h2{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:#fff;letter-spacing:1px;margin-bottom:.7rem}
+.qt-t p{color:rgba(255,255,255,.8);line-height:1.7;font-size:.94rem}
+.qt-checks{margin-top:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+.qtc{display:flex;align-items:center;gap:.7rem;color:rgba(255,255,255,.88);font-size:.87rem;font-weight:500}
+.qtc::before{content:'✓';width:20px;height:20px;min-width:20px;background:rgba(255,255,255,.2);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800}
+.qt-form{background:#fff;border-radius:18px;padding:2rem;box-shadow:0 22px 60px rgba(0,0,0,.2)}
+.qt-form h3{font-size:1.08rem;font-weight:700;color:var(--navy);margin-bottom:1.3rem;padding-bottom:.7rem;border-bottom:2px solid var(--light2)}
+.fg{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.82rem}
+.fg label{font-size:.66rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.fg input,.fg select,.fg textarea{background:var(--light);border:2px solid var(--light2);color:var(--text);padding:10px 13px;font-family:'Outfit',sans-serif;font-size:.87rem;border-radius:7px;transition:.2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--red);background:#fff}
+.fg-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+
+/* BLOG */
+#blog{background:#fff}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.bc{border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(11,29,79,.07);transition:.35s;border:2px solid var(--light2);background:#fff}
+.bc:hover{transform:translateY(-7px);box-shadow:0 22px 50px rgba(11,29,79,.12);border-color:var(--red)}
+.bc-thumb{height:180px;background:linear-gradient(135deg,var(--navy),var(--navy2));display:flex;align-items:center;justify-content:center;font-size:2.7rem;position:relative}
+.bc-cat{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;z-index:1}
+.bc-body{padding:1.4rem}
+.bc-meta{font-size:.7rem;color:var(--muted);margin-bottom:.5rem}
+.bc h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;line-height:1.4}
+.bc p{font-size:.8rem;color:var(--muted);line-height:1.65}
+.bc-lnk{display:inline-flex;align-items:center;gap:.4rem;color:var(--red);font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:.9rem;text-decoration:none;transition:.2s}
+.bc-lnk:hover{gap:.8rem}
+
+/* CAREERS */
+#careers{background:var(--light)}
+.car-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:4rem;align-items:start}
+.car-l{position:sticky;top:88px}
+.perks{display:flex;flex-direction:column;gap:.7rem;margin-top:1.8rem}
+.perk{display:flex;align-items:center;gap:.8rem;background:#fff;padding:.88rem 1.2rem;border-radius:10px;box-shadow:0 2px 10px rgba(11,29,79,.06);font-size:.87rem;font-weight:600;color:var(--navy)}
+.jobs-list{display:flex;flex-direction:column;gap:.9rem}
+.jcard{background:#fff;border-radius:12px;padding:1.3rem 1.7rem;border:2px solid var(--light2);display:flex;align-items:center;justify-content:space-between;gap:1.5rem;transition:.3s;box-shadow:0 2px 10px rgba(11,29,79,.05)}
+.jcard:hover{border-color:var(--red);box-shadow:0 8px 28px rgba(232,37,58,.1);transform:translateX(5px)}
+.jcard-info strong{display:block;font-size:.97rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.jcard-info span{font-size:.77rem;color:var(--muted)}
+.jtags{display:flex;gap:.35rem;margin-top:.4rem;flex-wrap:wrap}
+.jtag{padding:2px 9px;border-radius:20px;font-size:.61rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.jr{background:rgba(232,37,58,.1);color:var(--red);border:1px solid rgba(232,37,58,.2)}
+.jb{background:rgba(11,29,79,.07);color:var(--navy);border:1px solid rgba(11,29,79,.12)}
+.jg{background:rgba(255,184,0,.1);color:#7a5500;border:1px solid rgba(255,184,0,.3)}
+.jbtn{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border:none;padding:10px 18px;font-family:'Outfit',sans-serif;font-size:.77rem;font-weight:700;border-radius:6px;cursor:pointer;transition:.3s;white-space:nowrap}
+.jbtn:hover{background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:var(--sr)}
+.jobs-loading{text-align:center;color:var(--muted);padding:2rem;font-size:.88rem}
+
+/* CONTACT */
+#contact{background:#fff}
+.con-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;margin-top:3rem}
+.con-map{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:14px;height:185px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;margin-bottom:1.4rem;position:relative;overflow:hidden}
+.con-map-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.42);color:#fff;padding:.62rem;font-size:.79rem;font-weight:600;letter-spacing:1px;text-align:center}
+.con-dets{display:flex;flex-direction:column;gap:.85rem}
+.cdet{display:flex;gap:.85rem;align-items:flex-start;padding:.88rem;background:var(--light);border-radius:10px}
+.cdet-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--red),var(--orange));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.cdet strong{display:block;font-size:.66rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:1px}
+.cdet span{font-size:.87rem;color:var(--navy);font-weight:500}
+.con-fcard{background:var(--light);border-radius:16px;padding:2.4rem;border:2px solid var(--light2)}
+.con-fcard h3{font-family:'Black Han Sans',sans-serif;font-size:1.4rem;color:var(--navy);margin-bottom:.3rem;letter-spacing:1px}
+.con-fcard p{font-size:.83rem;color:var(--muted);margin-bottom:1.7rem}
+
+/* FOOTER */
+footer{background:linear-gradient(140deg,var(--navy),#060e28);padding:62px 5% 22px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.ft-brand p{font-size:.83rem;color:rgba(255,255,255,.44);line-height:1.7;margin:.7rem 0 1.1rem}
+.ft-soc{display:flex;gap:.5rem}
+.ftsc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:.83rem;cursor:pointer;transition:.2s;text-decoration:none;color:rgba(255,255,255,.55)}
+.ftsc:hover{background:var(--red);border-color:var(--red);color:#fff}
+.ft-col h4{font-size:.74rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:1.1rem;padding-bottom:.5rem;border-bottom:2px solid rgba(232,37,58,.35)}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.48rem}
+.ft-col ul a{color:rgba(255,255,255,.44);text-decoration:none;font-size:.82rem;transition:.2s}
+.ft-col ul a:hover{color:var(--red)}
+.ft-btm{border-top:1px solid rgba(255,255,255,.07);padding-top:1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+.ft-btm p{font-size:.75rem;color:rgba(255,255,255,.27)}
+.ft-lnks{display:flex;gap:1.4rem}
+.ft-lnks a{font-size:.72rem;color:rgba(255,255,255,.27);text-decoration:none;transition:.2s}
+.ft-lnks a:hover{color:var(--red)}
+
+/* MODALS */
+.modal{display:none;position:fixed;inset:0;background:rgba(11,29,79,.72);backdrop-filter:blur(8px);z-index:2000;align-items:center;justify-content:center;padding:1rem}
+.modal.open{display:flex;animation:fdin .2s ease}
+@keyframes fdin{from{opacity:0}to{opacity:1}}
+.mbox{background:#fff;border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;animation:popin .3s ease;box-shadow:0 28px 75px rgba(11,29,79,.18)}
+@keyframes popin{from{transform:scale(.88) translateY(22px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.mhd{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 2rem;border-bottom:2px solid var(--light2)}
+.mhd h3{font-size:1.15rem;font-weight:700;color:var(--navy)}
+.mclose{background:none;border:none;font-size:1.8rem;cursor:pointer;color:var(--muted);line-height:1;transition:.2s}
+.mclose:hover{color:var(--red)}
+.mbody{padding:2rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--navy);color:#fff;padding:1rem 1.5rem;border-radius:12px;font-size:.85rem;font-weight:600;z-index:9999;transform:translateX(220%);transition:.35s;box-shadow:0 8px 30px rgba(11,29,79,.25);max-width:320px;display:flex;align-items:center;gap:.5rem}
+.toast.show{transform:translateX(0)}
+.toast.ts{background:linear-gradient(135deg,#1a6b3c,#155c33)}
+.toast.te{background:linear-gradient(135deg,var(--red),var(--red2))}
+
+.admin-btn{position:fixed;bottom:2rem;left:2rem;background:var(--navy);color:#fff;padding:9px 15px;border-radius:8px;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:.2s;box-shadow:0 4px 14px rgba(11,29,79,.28);z-index:400}
+.admin-btn:hover{background:var(--red)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.hero-floats{display:none}.svc-grid{grid-template-columns:1fr 1fr}.car-grid{grid-template-columns:1fr}.car-l{position:static}}
+@media(max-width:768px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .ab-grid,.con-grid,.qt-grid,.ft-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr}
+  .sts-grid{grid-template-columns:1fr 1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .hero-sbar{flex-wrap:wrap}.hsb{min-width:50%}
+  .ft-grid{grid-template-columns:1fr 1fr}
+  .fg-2{grid-template-columns:1fr}
+}
+@media(max-width:480px){.ft-grid{grid-template-columns:1fr}.sts-grid{grid-template-columns:1fr 1fr}.hero-btns{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- ════ SUPABASE CONFIG ════
+  1. Go to https://supabase.com → New Project
+  2. Settings → API → copy Project URL and anon public key
+  3. Paste them below
+  4. Run the SQL in admin.html setup panel to create tables
+================================================ -->
+<script>
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';       // e.g. https://xxxx.supabase.co
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // your anon/public key
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+
+<div class="cg" id="cg"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="ld-icon">🛡</div>
+  <div class="ld-txt">TENYA SECURITY</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+  <div class="ld-sub">Integrity With Excellence · Est. 2023</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <div class="logo-hex">T</div>
+    <div class="logo-txt">TENYA SECURITY<small>Integrity With Excellence</small></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:.8rem">
+    <button class="btn-nav" onclick="openM('qModal')">🛡 Free Quote</button>
+    <button class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#about" onclick="closeNav()">About</a>
+  <a href="#services" onclick="closeNav()">Services</a>
+  <a href="#careers" onclick="closeNav()">Careers</a>
+  <a href="#blog" onclick="closeNav()">Blog</a>
+  <a href="#contact" onclick="closeNav()">Contact</a>
+  <button class="btn-p" onclick="openM('qModal');closeNav()" style="justify-content:center;margin-top:.4rem">Get Free Quote →</button>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hbg-c"><div class="hbc hbc1"></div><div class="hbc hbc2"></div><div class="hbc hbc3"></div></div>
+  <div class="pts" id="pts"></div>
+  <div class="hero-content">
+    <div class="hero-pill"><span class="hdot"></span>Trusted Security · Nairobi, Kenya</div>
+    <h1>PROTECT<br><span class="h1r">WHAT</span><br><span class="h1g">MATTERS</span></h1>
+    <p class="hero-sub">Professional security solutions built on integrity and excellence. Guarding businesses, homes and institutions across Kenya — 24/7, every day of the year.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-hp">Explore Services →</a>
+      <button class="btn-hs" onclick="openM('qModal')">🛡 Get Free Quote</button>
+    </div>
+  </div>
+  <div class="hero-floats">
+    <div class="hfc ac">
+      <div class="yr-badge">2<small>Years</small></div>
+      <div class="hfc-row"><span class="hfc-icon">🛡</span><div><div class="hfc-val">500+</div><div class="hfc-lbl">Clients Protected</div></div></div>
+    </div>
+    <div class="hfc"><div class="hfc-row"><span class="hfc-icon">⚡</span><div><div class="hfc-val">24/7</div><div class="hfc-lbl">Rapid Response</div></div></div></div>
+    <div class="hfc"><div class="hfc-row"><span class="hfc-icon">✅</span><div><div class="hfc-val">100%</div><div class="hfc-lbl">Licensed & Certified</div></div></div></div>
+  </div>
+  <div class="hero-sbar">
+    <div class="hsb"><span class="hsb-n" data-count="500">0</span><span class="hsb-l">Clients</span></div>
+    <div class="hsb"><span class="hsb-n" data-count="2">0</span><span class="hsb-l">Years Experience</span></div>
+    <div class="hsb"><span class="hsb-n" data-count="98">0</span><span class="hsb-l">% Retention</span></div>
+    <div class="hsb"><span class="hsb-n" data-count="100">0</span><span class="hsb-l">% Licensed</span></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-band"><div class="mq-inner">
+  <span><span class="mstar">★</span>Manned Guarding</span><span><span class="mstar">★</span>CCTV Surveillance</span><span><span class="mstar">★</span>Alarm Response</span><span><span class="mstar">★</span>Mobile Patrol</span><span><span class="mstar">★</span>Access Control</span><span><span class="mstar">★</span>Security Training</span><span><span class="mstar">★</span>Risk Assessment</span><span><span class="mstar">★</span>Event Security</span>
+  <span><span class="mstar">★</span>Manned Guarding</span><span><span class="mstar">★</span>CCTV Surveillance</span><span><span class="mstar">★</span>Alarm Response</span><span><span class="mstar">★</span>Mobile Patrol</span><span><span class="mstar">★</span>Access Control</span><span><span class="mstar">★</span>Security Training</span><span><span class="mstar">★</span>Risk Assessment</span><span><span class="mstar">★</span>Event Security</span>
+</div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="ab-grid">
+    <div class="ab-img-wrap rv-l">
+      <div class="ab-img">🛡</div>
+      <div class="ab-fc1"><div class="afc-icon">🏆</div><div><div class="afc-n">2</div><div class="afc-l">Years of Excellence</div></div></div>
+      <div class="ab-fc2"><div class="ab-fc2-n">500+</div><div class="ab-fc2-l">Happy Clients</div></div>
+    </div>
+    <div class="rv-r">
+      <div class="stag">Who We Are</div>
+      <h2 class="stitle">TENYA SECURITY<br><span>GROUP LTD</span></h2>
+      <p class="ssub">Tenya Security Group Ltd is a fast-growing professional security company built on <strong>Integrity</strong> and <strong>Excellence</strong>. In just <strong>2 years</strong>, we've grown to protect hundreds of clients across Kenya, delivering reliable, professional security every single day.</p>
+      <div class="ab-feats">
+        <div class="afi"><span class="afi-icon">🏅</span><div><strong>Licensed & Certified</strong><span>PSRA Government licensed</span></div></div>
+        <div class="afi"><span class="afi-icon">🛡</span><div><strong>Trained Officers</strong><span>Professionally vetted guards</span></div></div>
+        <div class="afi"><span class="afi-icon">📡</span><div><strong>Modern Technology</strong><span>CCTV, access & monitoring</span></div></div>
+        <div class="afi"><span class="afi-icon">⚡</span><div><strong>24/7 Response</strong><span>Always ready, always there</span></div></div>
+      </div>
+      <div style="display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap">
+        <a href="#contact" class="btn-p">Get in Touch →</a>
+        <a href="#services" class="btn-o">Our Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-hdr">
+    <div class="rv"><div class="stag">What We Offer</div><h2 class="stitle">OUR <span>SERVICES</span></h2></div>
+    <p class="ssub rv" style="max-width:340px">Comprehensive, tailored security solutions for every environment.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card rv d1"><div class="svc-num">01</div><div class="svc-iw">🏢</div><h3>Manned Guarding</h3><p>Uniformed professional security officers for commercial, residential and industrial premises. Day and night shifts available.</p><a href="#contact" class="svc-lnk">Enquire Now →</a></div>
+    <div class="svc-card rv d2"><div class="svc-num">02</div><div class="svc-iw">📹</div><h3>CCTV & Surveillance</h3><p>Advanced camera systems with remote monitoring, live recording and 24/7 intelligent surveillance to protect your property.</p><a href="#contact" class="svc-lnk">Enquire Now →</a></div>
+    <div class="svc-card rv d3"><div class="svc-num">03</div><div class="svc-iw">🚨</div><h3>Alarm Response</h3><p>Rapid armed response units deployed within minutes of any alarm activation — protecting what matters most to you.</p><a href="#contact" class="svc-lnk">Enquire Now →</a></div>
+    <div class="svc-card rv d1"><div class="svc-num">04</div><div class="svc-iw">🚗</div><h3>Mobile Patrol</h3><p>Regular mobile patrol services covering wide areas and multiple sites with a visible, professional security presence.</p><a href="#contact" class="svc-lnk">Enquire Now →</a></div>
+    <div class="svc-card rv d2"><div class="svc-num">05</div><div class="svc-iw">🔐</div><h3>Access Control</h3><p>Biometric and card-based access control systems to manage and restrict entry to all sensitive areas of your facility.</p><a href="#contact" class="svc-lnk">Enquire Now →</a></div>
+    <div class="svc-card rv d3"><div class="svc-num">06</div><div class="svc-iw">🎓</div><h3>Security Training</h3><p>Professional training programs for security personnel — building awareness, competency and leadership at every level.</p><a href="#contact" class="svc-lnk">Enquire Now →</a></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="sts-strip">
+  <div class="sts-grid">
+    <div class="stsc rv d1"><span class="stsc-n" data-count="500">0</span><span class="stsc-l">Happy Clients</span><p class="stsc-d">Businesses & homes we protect</p></div>
+    <div class="stsc rv d2"><span class="stsc-n" data-count="2">0</span><span class="stsc-l">Years of Excellence</span><p class="stsc-d">Building trust since Day 1</p></div>
+    <div class="stsc rv d3"><span class="stsc-n" data-count="98">0</span><span class="stsc-l">% Retention Rate</span><p class="stsc-d">Clients trust us year after year</p></div>
+    <div class="stsc rv d4"><span class="stsc-n" data-count="24">0</span><span class="stsc-l">Hour Coverage</span><p class="stsc-d">Operations that never sleep</p></div>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<section id="quote">
+  <div class="qt-grid">
+    <div class="rv-l">
+      <div class="stag" style="color:rgba(255,255,255,.75)">Free Assessment</div>
+      <div class="qt-t"><h2>GET YOUR FREE<br>SECURITY QUOTE</h2><p>Tell us about your needs and we'll build a customized, cost-effective security solution for you.</p></div>
+      <div class="qt-checks">
+        <div class="qtc">Free site security assessment</div>
+        <div class="qtc">Custom solution built for you</div>
+        <div class="qtc">Competitive, transparent pricing</div>
+        <div class="qtc">Response guaranteed within 24 hours</div>
+      </div>
+    </div>
+    <div class="qt-form rv-r">
+      <h3>🛡 Request a Quote</h3>
+      <div class="fg-2">
+        <div class="fg"><label>Your Name</label><input id="qqN" placeholder="John Kamau"/></div>
+        <div class="fg"><label>Phone</label><input id="qqP" placeholder="+254 700 000 000"/></div>
+      </div>
+      <div class="fg"><label>Email (optional)</label><input id="qqE" type="email" placeholder="john@company.co.ke"/></div>
+      <div class="fg"><label>Service Needed</label>
+        <select id="qqS"><option value="">Select a service...</option><option>Manned Guarding</option><option>CCTV & Surveillance</option><option>Alarm Response</option><option>Mobile Patrol</option><option>Access Control</option><option>Security Training</option><option>Multiple Services</option></select>
+      </div>
+      <div class="fg"><label>Brief Description</label><textarea id="qqD" style="min-height:65px" placeholder="Describe your security needs briefly..."></textarea></div>
+      <button class="btn-p" onclick="submitQQ()" style="width:100%;justify-content:center;padding:13px">Submit Quote Request →</button>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem">
+    <div class="rv"><div class="stag">Latest News</div><h2 class="stitle">FROM OUR <span>BLOG</span></h2></div>
+    <a href="#" class="btn-o rv">View All Posts →</a>
+  </div>
+  <div class="blog-grid" id="blogGrid">
+    <div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:2rem" class="jobs-loading">Loading posts...</div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section id="careers">
+  <div class="car-grid">
+    <div class="car-l rv-l">
+      <div class="stag">Join Our Team</div>
+      <h2 class="stitle">BUILD YOUR<br><span>CAREER</span><br>WITH US</h2>
+      <p class="ssub" style="margin-top:.7rem">Be part of a fast-growing security company that values integrity, professionalism and excellence.</p>
+      <div class="perks">
+        <div class="perk">💰 Competitive salary & benefits</div>
+        <div class="perk">🎓 Free professional training</div>
+        <div class="perk">📈 Career growth opportunities</div>
+        <div class="perk">👕 Uniform & equipment provided</div>
+        <div class="perk">🏥 Medical cover included</div>
+      </div>
+    </div>
+    <div class="jobs-list rv-r" id="jobsList">
+      <div class="jobs-loading">Loading positions...</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="rv" style="text-align:center;margin-bottom:3rem">
+    <div class="stag" style="justify-content:center">Reach Us</div>
+    <h2 class="stitle" style="text-align:center">GET IN <span>TOUCH</span></h2>
+    <p class="ssub" style="margin:0 auto;text-align:center;max-width:420px">We're ready to discuss how Tenya Security can protect what matters most to you.</p>
+  </div>
+  <div class="con-grid">
+    <div class="rv-l">
+      <div class="con-map">🗺<div class="con-map-lbl">📍 Nairobi, Kenya</div></div>
+      <div class="con-dets">
+        <div class="cdet"><div class="cdet-icon">📍</div><div><strong>Location</strong><span>Nairobi, Kenya</span></div></div>
+        <div class="cdet"><div class="cdet-icon">📞</div><div><strong>Phone</strong><span>+254 700 000 000</span></div></div>
+        <div class="cdet"><div class="cdet-icon">✉️</div><div><strong>Email</strong><span>info@tenyasecurity.co.ke</span></div></div>
+        <div class="cdet"><div class="cdet-icon">🕐</div><div><strong>Hours</strong><span>24/7 — Always Available</span></div></div>
+      </div>
+    </div>
+    <div class="con-fcard rv-r">
+      <h3>Send Us a Message</h3>
+      <p>Fill out the form and our team will respond within 24 hours.</p>
+      <div class="fg-2">
+        <div class="fg"><label>Full Name</label><input id="cN" placeholder="John Kamau"/></div>
+        <div class="fg"><label>Phone</label><input id="cP" placeholder="+254 700 000 000"/></div>
+      </div>
+      <div class="fg"><label>Email</label><input id="cE" type="email" placeholder="john@company.co.ke"/></div>
+      <div class="fg"><label>Subject</label><select id="cS"><option>General Inquiry</option><option>Request a Quote</option><option>Partnership</option><option>Complaint</option><option>Other</option></select></div>
+      <div class="fg"><label>Message</label><textarea id="cM" style="min-height:105px" placeholder="Tell us about your security needs..."></textarea></div>
+      <button class="btn-p" onclick="submitContact()" style="width:100%;justify-content:center;padding:13px">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div style="font-family:'Black Han Sans',sans-serif;font-size:1.05rem;letter-spacing:1px;color:#fff">TENYA SECURITY<span style="display:block;font-family:Outfit,sans-serif;font-size:.57rem;font-weight:700;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-top:2px">Integrity With Excellence</span></div>
+      <p>Professional security solutions protecting businesses and residences across Kenya since 2023.</p>
+      <div class="ft-soc"><a class="ftsc" href="#">f</a><a class="ftsc" href="#">𝕏</a><a class="ftsc" href="#">in</a><a class="ftsc" href="#">W</a></div>
+    </div>
+    <div class="ft-col"><h4>Services</h4><ul><li><a href="#">Manned Guarding</a></li><li><a href="#">CCTV Surveillance</a></li><li><a href="#">Alarm Response</a></li><li><a href="#">Mobile Patrol</a></li><li><a href="#">Access Control</a></li></ul></div>
+    <div class="ft-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#blog">Blog</a></li><li><a href="#careers">Careers</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="ft-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">PSRA License</a></li></ul></div>
+  </div>
+  <div class="ft-btm">
+    <p>© 2025 Tenya Security Group Ltd. All rights reserved. Nairobi, Kenya.</p>
+    <div class="ft-lnks"><a href="#">Privacy</a><a href="#">Terms</a><a href="admin.html">Admin</a></div>
+  </div>
+</footer>
+
+<!-- QUOTE MODAL -->
+<div class="modal" id="qModal">
+  <div class="mbox">
+    <div class="mhd"><h3>🛡 Request a Free Quote</h3><button class="mclose" onclick="closeM('qModal')">×</button></div>
+    <div class="mbody">
+      <div class="fg-2"><div class="fg"><label>Name</label><input id="qN" placeholder="Your full name"/></div><div class="fg"><label>Company</label><input id="qC" placeholder="Company (optional)"/></div></div>
+      <div class="fg-2"><div class="fg"><label>Phone</label><input id="qP" placeholder="+254 700 000 000"/></div><div class="fg"><label>Email</label><input id="qE" type="email" placeholder="email@example.com"/></div></div>
+      <div class="fg"><label>Service Needed</label><select id="qSv"><option>Manned Guarding</option><option>CCTV & Surveillance</option><option>Alarm Response</option><option>Mobile Patrol</option><option>Access Control</option><option>Security Training</option><option>Multiple Services</option></select></div>
+      <div class="fg"><label>Site Location</label><input id="qL" placeholder="Where is the site to be secured?"/></div>
+      <div class="fg"><label>Details</label><textarea id="qD" placeholder="Describe your security requirements..."></textarea></div>
+      <button class="btn-p" onclick="submitQuote()" style="width:100%;justify-content:center;margin-top:.3rem">Submit Quote Request →</button>
+    </div>
+  </div>
+</div>
+
+<!-- APPLY MODAL -->
+<div class="modal" id="apModal">
+  <div class="mbox">
+    <div class="mhd"><h3 id="apTitle">Apply for Position</h3><button class="mclose" onclick="closeM('apModal')">×</button></div>
+    <div class="mbody">
+      <div class="fg-2"><div class="fg"><label>Full Name</label><input id="aN" placeholder="Your full name"/></div><div class="fg"><label>Phone</label><input id="aPh" placeholder="+254 700 000 000"/></div></div>
+      <div class="fg"><label>Email</label><input id="aE" type="email" placeholder="your@email.com"/></div>
+      <div class="fg"><label>National ID Number</label><input id="aId" placeholder="Your National ID number"/></div>
+      <div class="fg"><label>Why do you want to join Tenya Security?</label><textarea id="aCv" placeholder="Tell us about yourself and why you're a great fit..."></textarea></div>
+      <button class="btn-p" onclick="submitApp()" style="width:100%;justify-content:center;margin-top:.3rem">Submit Application →</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<a href="admin.html" class="admin-btn">⚙ Admin</a>
+
+<script>
+// ── LOADER ──
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('gone'),1900)});
+
+// ── CURSOR ──
+document.addEventListener('mousemove',e=>{const g=document.getElementById('cg');if(g)g.style.transform=`translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`});
+
+// ── NAV ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>50);
+  ['about','services','careers','blog','contact'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const r=el.getBoundingClientRect();
+    const a=document.querySelector(`.nav-links a[href="#${id}"]`);
+    if(a)a.classList.toggle('active',r.top<=80&&r.bottom>0);
+  });
+});
+function toggleNav(){document.getElementById('mobNav').classList.toggle('open')}
+function closeNav(){document.getElementById('mobNav').classList.remove('open')}
+
+// ── MODALS ──
+function openM(id){document.getElementById(id).classList.add('open')}
+function closeM(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')}));
+function openApply(pos){document.getElementById('apTitle').textContent='Apply: '+pos;openM('apModal')}
+
+// ── TOAST ──
+function toast(msg,type=''){
+  const t=document.getElementById('toast');
+  const ic={ts:'✅ ',te:'❌ ','':`🛡 `};
+  t.innerHTML=(ic[type]||'🛡 ')+msg;t.className='toast '+(type||'');
+  requestAnimationFrame(()=>t.classList.add('show'));
+  setTimeout(()=>t.classList.remove('show'),3800);
+}
+
+// ── SCROLL REVEAL ──
+const ro=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>ro.observe(el));
+
+// ── COUNTER ──
+const co=new IntersectionObserver(en=>{en.forEach(e=>{
+  if(e.isIntersecting){
+    const el=e.target,target=+el.dataset.count,dur=2000,inc=target/60;
+    let v=0;const t=setInterval(()=>{v+=inc;if(v>=target){el.textContent=target;clearInterval(t)}else el.textContent=Math.floor(v)},dur/60);
+    co.unobserve(el);
+  }
+})},{threshold:.3});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+// ── PARTICLES ──
+(function(){const w=document.getElementById('pts');if(!w)return;
+  const c=['rgba(232,37,58,.5)','rgba(255,184,0,.35)','rgba(255,107,53,.4)','rgba(255,255,255,.25)'];
+  for(let i=0;i<20;i++){const p=document.createElement('div'),s=Math.random()*7+2;
+    p.className='pt';p.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${c[Math.floor(Math.random()*c.length)]};animation-duration:${Math.random()*12+7}s;animation-delay:${Math.random()*6}s;`;
+    w.appendChild(p);}
+})();
+
+// ── HELPERS ──
+const gv=id=>document.getElementById(id)?.value.trim()||'';
+const sv=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v};
+
+// ── SUPABASE OPERATIONS ──
+async function submitQuote(){
+  const d={name:gv('qN'),company:gv('qC'),phone:gv('qP'),email:gv('qE'),service:gv('qSv'),site_location:gv('qL'),details:gv('qD'),status:'new'};
+  if(!d.name||!d.phone){toast('Please fill in your name and phone number.','te');return}
+  const {error}=await db.from('quotes').insert([d]);
+  if(error){toast('Could not submit. Please call us directly.','te');console.error(error);return}
+  toast('Quote request sent! We\'ll contact you within 24 hours.','ts');closeM('qModal');
+}
+async function submitQQ(){
+  const d={name:gv('qqN'),phone:gv('qqP'),email:gv('qqE'),service:gv('qqS'),details:gv('qqD'),status:'new'};
+  if(!d.name||!d.phone){toast('Please fill in your name and phone.','te');return}
+  const {error}=await db.from('quotes').insert([d]);
+  if(error){toast('Could not submit. Please call us directly.','te');return}
+  toast('Thanks! We\'ll call you within 24 hours.','ts');
+  ['qqN','qqP','qqE','qqD'].forEach(id=>sv(id,''));document.getElementById('qqS').value='';
+}
+async function submitContact(){
+  const d={name:gv('cN'),phone:gv('cP'),email:gv('cE'),subject:gv('cS'),message:gv('cM'),status:'new'};
+  if(!d.name||!d.message){toast('Please fill in your name and message.','te');return}
+  const {error}=await db.from('messages').insert([d]);
+  if(error){toast('Could not send message. Please email us directly.','te');return}
+  toast('Message sent! We\'ll respond shortly.','ts');
+  ['cN','cP','cE','cM'].forEach(id=>sv(id,''));
+}
+async function submitApp(){
+  const pos=document.getElementById('apTitle').textContent.replace('Apply: ','');
+  const d={name:gv('aN'),phone:gv('aPh'),email:gv('aE'),national_id:gv('aId'),cover_letter:gv('aCv'),position:pos,status:'pending'};
+  if(!d.name||!d.phone){toast('Please fill in your name and phone.','te');return}
+  const {error}=await db.from('applications').insert([d]);
+  if(error){toast('Could not submit application. Please contact us directly.','te');return}
+  toast('Application submitted! We\'ll be in touch.','ts');closeM('apModal');
+}
+
+// ── LOAD BLOG FROM SUPABASE ──
+async function loadBlog(){
+  const grid=document.getElementById('blogGrid');
+  const thumbEmojis=['🔒','🏢','📋','🛡','🚨','📡'];
+  const thumbBgs=['linear-gradient(135deg,#0b1d4f,#0e2460)','linear-gradient(135deg,#1a3a8f,#0b1d4f)','linear-gradient(135deg,#2a0a1a,#4a1530)'];
+  const {data,error}=await db.from('blog_posts').select('*').eq('status','published').order('created_at',{ascending:false}).limit(6);
+  if(error||!data||!data.length){
+    grid.innerHTML=`
+      <div class="bc rv d1"><div class="bc-thumb">${thumbEmojis[0]}<span class="bc-cat">Security Tips</span></div><div class="bc-body"><div class="bc-meta">📅 March 2025 · 4 min read</div><h3>Top 5 Security Measures Every Business Needs in 2025</h3><p>From access control to CCTV — the essential security infrastructure every Nairobi business should have.</p><a href="#" class="bc-lnk">Read More →</a></div></div>
+      <div class="bc rv d2"><div class="bc-thumb" style="background:${thumbBgs[1]}">${thumbEmojis[1]}<span class="bc-cat">Residential</span></div><div class="bc-body"><div class="bc-meta">📅 February 2025 · 3 min read</div><h3>Keeping Your Home Safe in Nairobi: A Practical Guide</h3><p>Practical tips for homeowners looking to upgrade their residential security without breaking the bank.</p><a href="#" class="bc-lnk">Read More →</a></div></div>
+      <div class="bc rv d3"><div class="bc-thumb" style="background:${thumbBgs[2]}">${thumbEmojis[2]}<span class="bc-cat">Industry</span></div><div class="bc-body"><div class="bc-meta">📅 January 2025 · 5 min read</div><h3>Kenya's PSRA Regulations: What Business Owners Must Know</h3><p>Understanding Kenya's Private Security Regulatory Authority and why compliance matters for your protection.</p><a href="#" class="bc-lnk">Read More →</a></div></div>`;
+    grid.querySelectorAll('.rv').forEach(el=>ro.observe(el));return;
+  }
+  grid.innerHTML=data.map((p,i)=>{
+    const date=new Date(p.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    const img=p.image_url?`<img src="${p.image_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'" />`:'';
+    return `<div class="bc rv d${(i%3)+1}"><div class="bc-thumb" style="background:${thumbBgs[i%3]}">${img}${thumbEmojis[i%6]}<span class="bc-cat">${p.category||'News'}</span></div><div class="bc-body"><div class="bc-meta">📅 ${date}</div><h3>${p.title}</h3><p>${p.excerpt||''}</p><a href="#" class="bc-lnk">Read More →</a></div></div>`;
+  }).join('');
+  grid.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+}
+
+// ── LOAD CAREERS FROM SUPABASE ──
+async function loadCareers(){
+  const list=document.getElementById('jobsList');
+  const {data,error}=await db.from('careers').select('*').eq('status','active').order('created_at',{ascending:false});
+  if(error||!data||!data.length){
+    list.innerHTML=`
+      <div class="jcard rv"><div class="jcard-info"><strong>Security Guard – Nairobi CBD</strong><span>Full Time · Nairobi, Kenya</span><div class="jtags"><span class="jtag jr">Urgent</span><span class="jtag jb">Entry Level</span></div></div><button class="jbtn" onclick="openApply('Security Guard – Nairobi CBD')">Apply Now</button></div>
+      <div class="jcard rv d1"><div class="jcard-info"><strong>Security Supervisor – Westlands</strong><span>Full Time · Nairobi, Kenya</span><div class="jtags"><span class="jtag jb">Experienced</span><span class="jtag jg">Leadership</span></div></div><button class="jbtn" onclick="openApply('Security Supervisor – Westlands')">Apply Now</button></div>
+      <div class="jcard rv d2"><div class="jcard-info"><strong>Control Room Operator</strong><span>Full Time · Nairobi, Kenya</span><div class="jtags"><span class="jtag jr">New</span><span class="jtag jb">Technical</span></div></div><button class="jbtn" onclick="openApply('Control Room Operator')">Apply Now</button></div>`;
+    list.querySelectorAll('.rv').forEach(el=>ro.observe(el));return;
+  }
+  list.innerHTML=data.map((j,i)=>`
+    <div class="jcard rv d${i%3}">
+      <div class="jcard-info">
+        <strong>${j.title}</strong><span>${j.type||'Full Time'} · ${j.location||'Nairobi, Kenya'}</span>
+        <div class="jtags">${j.tag?`<span class="jtag jr">${j.tag}</span>`:''}<span class="jtag jb">${j.level||'Open Level'}</span></div>
+      </div>
+      <button class="jbtn" onclick="openApply('${j.title}')">Apply Now</button>
+    </div>`).join('');
+  list.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+}
+
+// ── INIT ──
+loadBlog();
+loadCareers();
+</script>
+</body>
+</html>
