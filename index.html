@@ -468,19 +468,61 @@ const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 <!-- CAREERS -->
 <section id="careers">
-  <div class="car-grid">
-    <div class="car-l rv-l">
-      <div class="stag">Join Our Team</div>
-      <h2 class="stitle">BUILD YOUR<br><span>CAREER</span><br>WITH US</h2>
-      <p class="ssub" style="margin-top:.7rem">Be part of a fast-growing security company that values integrity, professionalism and excellence.</p>
-      <div class="perks">
-        <div class="perk">💰 Competitive salary & benefits</div>
-        <div class="perk">🎓 Free professional training</div>
-        <div class="perk">📈 Career growth opportunities</div>
-        <div class="perk">👕 Uniform & equipment provided</div>
-        <div class="perk">🏥 Medical cover included</div>
+  <div class="container perks-section">
+    <h2 class="text-center mb-5">Our Benefits</h2>
+
+    <div class="row g-4">
+
+      <div class="col-md-4 col-sm-6">
+        <div class="perk-card">
+          <div class="perk-icon">
+            <i class="bi bi-cash-coin"></i>
+          </div>
+          <div class="perk-text">Competitive salary & benefits</div>
+        </div>
       </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="perk-card">
+          <div class="perk-icon">
+            <i class="bi bi-mortarboard"></i>
+          </div>
+          <div class="perk-text">Free professional training</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="perk-card">
+          <div class="perk-icon">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <div class="perk-text">Career growth opportunities</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="perk-card">
+          <div class="perk-icon">
+            <i class="bi bi-person-badge"></i>
+          </div>
+          <div class="perk-text">Uniform & equipment provided</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="perk-card">
+          <div class="perk-icon">
+            <i class="bi bi-heart-pulse"></i>
+          </div>
+          <div class="perk-text">Medical cover included</div>
+        </div>
+      </div>
+
     </div>
+  </div>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+   
     <div class="jobs-list rv-r" id="jobsList">
       <div class="jobs-loading">Loading positions...</div>
     </div>
